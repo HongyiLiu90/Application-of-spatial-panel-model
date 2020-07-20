@@ -1,7 +1,7 @@
 
 
 % Hongyi Liu
-% 03/10/2014
+% 03/14/2014
 % James Lesage was so kind to make his code available to estimate SLM, SDM, and SEM with direct, indirect and total effects.
 % This matlab code is based on James Lesage (2009) and his toolbox.
 
@@ -9,13 +9,13 @@
 
 
 load p2.txt % input data
-load w2.txt % input the raw weghted matrix
+load w2.txt % input the economic-geographical spatial weighted matrix
 T=15; % number of time periods
 N=30; % number of regions
 % row-normalize W
-W=normw(w2); % function of LeSage
-y=p2(:,[3]); % column number in the data matrix that corresponds to the dependent variable
-x=p2(:,[8:17]); % column numbers in the data matrix that correspond to the independent variables
+W=normw(w2); 
+y=p2(:,[3]); 
+x=p2(:,[8:17]); 
 for t=1:T
 t1=(t-1)*N+1;t2=t*N;
 wx(t1:t2,:)=W*x(t1:t2,:);
