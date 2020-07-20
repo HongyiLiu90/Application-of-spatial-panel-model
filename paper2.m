@@ -72,8 +72,7 @@ panel_effects_sar(results,vnames,W);
 % independent variables
 info.lflag=0; % required for exact results
 info.model=1;
-info.fe=0; % Do not print intercept and fixed effects; use info.fe=1 to turn on
-% New routines to calculate effects estimates
+info.fe=0; 
 results=sar_panel_FE(y,[x wx],W,T,info); 
 vnames=char('g','logLgdp','logsk','logsh','logn','logpopden',...
   'lnwage','bus','road','toil','llogcla','W*logLgdp','W*logsk','W*logsh','W*logn',...
@@ -88,8 +87,7 @@ panel_effects_sdm(results,vnames,W);
 % Time period fixed effects + spatially lagged dependent variable
 info.lflag=0; % required for exact results
 info.model=2;
-info.fe=0; % Do not print intercept and fixed effects; use info.fe=1 to turn on
-% New routines to calculate effects estimates
+info.fe=0; 
 results=sar_panel_FE(y,x,W,T,info); 
 vnames=char('g','logLgdp','logsk','logsh','logn','logpopden','lnwage','bus','road','toil','llogcla');
 % Print out coefficient estimates
@@ -103,8 +101,7 @@ panel_effects_sar(results,vnames,W);
 % independent variables
 info.lflag=0; % required for exact results
 info.model=2;
-info.fe=0; % Do not print intercept and fixed effects; use info.fe=1 to turn on
-% New routines to calculate effects estimates
+info.fe=0; 
 results=sar_panel_FE(y,[x wx],W,T,info); 
 vnames=char('g','logLgdp','logsk','logsh','logn','logpopden',...
   'lnwage','bus','road','toil','llogcla','W*logLgdp','W*logsk','W*logsh','W*logn',...
@@ -119,8 +116,7 @@ panel_effects_sdm(results,vnames,W);
 % Spatial and time period fixed effects + spatially lagged dependent variable
 info.lflag=0; % required for exact results
 info.model=3;
-info.fe=0; % Do not print intercept and fixed effects; use info.fe=1 to turn on
-% New routines to calculate effects estimates
+info.fe=0; 
 results=sar_panel_FE(y,x,W,T,info); 
 vnames=char('g','logLgdp','logsk','logsh','logn','logpopden','lnwage','bus','road','toil','llogcla');
 % Print out coefficient estimates
@@ -136,8 +132,7 @@ panel_effects_sar(results,vnames,W);
 info.bc=0;
 info.lflag=0; % required for exact results
 info.model=3;
-info.fe=0; % Do not print intercept and fixed effects; use info.fe=1 to turn on
-% New routines to calculate effects estimates
+info.fe=0; 
 results=sar_panel_FE(y,[x wx],W,T,info); 
 vnames=char('g','logLgdp','logsk','logsh','logn','logpopden',...
   'lnwage','bus','road','toil','llogcla','W*logLgdp','W*logsk','W*logsh','W*logn',...
@@ -153,7 +148,7 @@ btemp=results.parm;
 varcov=results.cov;
 Rafg=zeros(K,2*K+2);
 for k=1:K
-Rafg(k,K+k)=1; % R(1,3)=0 and R(2,4)=0;
+Rafg(k,K+k)=1; 
 end
 Wald_spatial_lag=(Rafg*btemp)'*inv(Rafg*varcov*Rafg')*Rafg*btemp
 prob_spatial_lag=1-chis_cdf (Wald_spatial_lag, K) % probability greater than 0.05 points to insignificance
@@ -165,17 +160,13 @@ prob_spatial_lag=1-chis_cdf (LR_spatial_lag,K) % probability greater than 0.05 p
 % Wald test spatial Durbin model against spatial error model
 R=zeros(K,1);
 for k=1:K
-R(k)=btemp(2*K+1)*btemp(k)+btemp(K+k); % k changed in 1, 7/12/2010
-% R(1)=btemp(5)*btemp(1)+btemp(3);
-% R(2)=btemp(5)*btemp(2)+btemp(4);
+R(k)=btemp(2*K+1)*btemp(k)+btemp(K+k); 
 end
 Rafg=zeros(K,2*K+2);
 for k=1:K
-Rafg(k,k) =btemp(2*K+1); % k changed in 1, 7/12/2010
+Rafg(k,k) =btemp(2*K+1); 
 Rafg(k,K+k) =1;
 Rafg(k,2*K+1)=btemp(k);
-% Rafg(1,1)=btemp(5);Rafg(1,3)=1;Rafg(1,5)=btemp(1);
-% Rafg(2,2)=btemp(5);Rafg(2,4)=1;Rafg(2,5)=btemp(2);
 end 
 Wald_spatial_error=R'*inv(Rafg*varcov*Rafg')*R
 prob_spatial_error=1-chis_cdf (Wald_spatial_error,K) % probability greater than 0.05 points to insignificance
@@ -189,9 +180,8 @@ prob_spatial_error=1-chis_cdf (LR_spatial_error,K) % probability greater than 0.
 % independent variables
 info.lflag=0; % required for exact results
 info.model=3;
-info.fe=0; % Do not print intercept and fixed effects; use info.fe=1 to turn on
+info.fe=0; 
 info.bc=1;
-% New routines to calculate effects estimates
 results=sar_panel_FE(y,[x wx],W,T,info); 
 vnames=char('g','logLgdp','logsk','logsh','logn','logpopden',...
   'lnwage','bus','road','toil','llogcla','W*logLgdp','W*logsk','W*logsh','W*logn',...
@@ -219,17 +209,13 @@ prob_spatial_lag=1-chis_cdf (LR_spatial_lag,K) % probability greater than 0.05 p
 % Wald test for spatial error model
 R=zeros(K,1);
 for k=1:K
-R(k)=btemp(2*K+1)*btemp(k)+btemp(K+k); % k changed in 1, 7/12/2010
-% R(1)=btemp(5)*btemp(1)+btemp(3);
-% R(2)=btemp(5)*btemp(2)+btemp(4);
+R(k)=btemp(2*K+1)*btemp(k)+btemp(K+k); 
 end
 Rafg=zeros(K,2*K+2);
 for k=1:K
-Rafg(k,k) =btemp(2*K+1); % k changed in 1, 7/12/2010
+Rafg(k,k) =btemp(2*K+1); 
 Rafg(k,K+k) =1;
 Rafg(k,2*K+1)=btemp(k);
-% Rafg(1,1)=btemp(5);Rafg(1,3)=1;Rafg(1,5)=btemp(1);
-% Rafg(2,2)=btemp(5);Rafg(2,4)=1;Rafg(2,5)=btemp(2);
 end 
 Wald_spatial_error=R'*inv(Rafg*varcov*Rafg')*R
 prob_spatial_error= 1-chis_cdf (Wald_spatial_error,K) % probability greater than 0.05 points to insignificance
@@ -258,24 +244,20 @@ btemp=results.parm(1:2*K+2);
 varcov=results.cov(1:2*K+2,1:2*K+2);
 Rafg=zeros(K,2*K+2);
 for k=1:K
-Rafg(k,K+k)=1; % R(1,3)=0 and R(2,4)=0;
+Rafg(k,K+k)=1;
 end
 Wald_spatial_lag=(Rafg*btemp)'*inv(Rafg*varcov*Rafg')*Rafg*btemp
 prob_spatial_lag= 1-chis_cdf (Wald_spatial_lag, K) % probability greater than 0.05 points to insignificance
 % Wald test for spatial error model
 R=zeros(K,1);
 for k=1:K
-R(k)=btemp(2*K+1)*btemp(k)+btemp(K+k); % k changed in 1, 7/12/2010
-% R(1)=btemp(5)*btemp(1)+btemp(3);
-% R(2)=btemp(5)*btemp(2)+btemp(4);
+R(k)=btemp(2*K+1)*btemp(k)+btemp(K+k); 
 end
 Rafg=zeros(K,2*K+2);
 for k=1:K
-Rafg(k,k) =btemp(2*K+1); % k changed in 1, 7/12/2010
+Rafg(k,k) =btemp(2*K+1); 
 Rafg(k,K+k) =1;
 Rafg(k,2*K+1)=btemp(k);
-% Rafg(1,1)=btemp(5);Rafg(1,3)=1;Rafg(1,5)=btemp(1);
-% Rafg(2,2)=btemp(5);Rafg(2,4)=1;Rafg(2,5)=btemp(2);
 end 
 Wald_spatial_error=R'*inv(Rafg*varcov*Rafg')*R
 prob_spatial_error= 1-chis_cdf (Wald_spatial_error,K) % probability greater than 0.05 points to insignificance
