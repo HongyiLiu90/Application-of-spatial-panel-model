@@ -4,8 +4,8 @@
 % 03/14/2014
 % James Lesage was so kind to make his code available to estimate SLM, SDM, and SEM with direct, indirect and total effects.
 % This matlab code is based on James Lesage (2009) and his toolbox.
-
-% We construct a novel economic-geographical spatial weighted matrix.
+% This code provides for the joint work with Zou (2014), The spatial effect of urbanization on industrial structure and econonic growth
+% We construct a novel economic-geographical spatial weighted matrix here.
 
 
 load p2.txt % input data
